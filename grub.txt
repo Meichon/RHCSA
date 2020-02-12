@@ -1,0 +1,29 @@
+##############
+Comandos desde Root-
+force reset (forzar el reinicio)
+systemctl reboot (reinicio)
+systemctl poweroff (apagar)
+systemctl --help (ayuda)
+shutdown +2 "reiniciar en 2 minutos" 
+shutdown -hx "apagar en x minutos"
+---------------
+#como iniciar sistemas en destinos diferentes#
+destinos= ambiente en el que se trabaja (Gui, multiuser,etc)
+systemctl -get-default (consultar el target usado en el momento)
+systemctl set default -> tab (muestra la lista de target posibles o destinos existentes en sistemas RHEL7
+systemctl reboot
+desde el grub seleccionamos la promera opcion con la tecla "e", y editamos a opcion la linea que comienza con linux 16, se presiona ctl+e,y nos desplazamos al final de la linea.
+despues de la linea swap, escribimos los siguientes.
+systemd.unit=multi-user.target (identificando el target para comenzar de manera temporal una vez aceptamos los cambios y se vuelva a reiniciar el sistema.
+################
+cambiar la contraseña de root desde el grub 
+apretamos el boton e desde el inicio de sistema
+buscamos la linea que dice linux16 y luego debemos borrar las lineas que dicen rhgb quiet por rd.break, luego ctl+x
+mount
+mount -o rw,remount /sysroot
+chroot /sysroot/
+passwd 
+echo "password123456" | passwd root --stdin
+touch /.autorelabel (al reiniciar se aplican nuevamente las politicas de selinux)
+exit
+exit
